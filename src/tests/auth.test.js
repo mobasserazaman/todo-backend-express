@@ -21,7 +21,7 @@ describe("Auth Tests", () => {
     });
 
     expect(response.status).toBe(201);
-    expect(response.body.msg).toBe("Registration successful");
+    expect(response.body.message).toBe("Registration successful");
   });
 
   test("should ask for different username", async () => {
@@ -35,7 +35,7 @@ describe("Auth Tests", () => {
 
     });
     expect(response.status).toBe(400);
-    expect(response.body.msg).toBe("Username already exists. Please use a different username.");
+    expect(response.body.message).toBe("Username already exists");
   });
 
   test("should login successfully and set cookie", async () => {
@@ -49,7 +49,8 @@ describe("Auth Tests", () => {
       password: "test1",
     });
 
-    expect(response.body.msg).toBe("Login successful");
+    expect(response.body.message).toBe("Login successful");
+    console.log(response.headers);
     expect(response.headers["set-cookie"]).toBeTruthy();
 
   });
@@ -65,7 +66,7 @@ describe("Auth Tests", () => {
       password: "test1234",
     });
 
-    expect(response.body.msg).toBe("Invalid credentials");
+    expect(response.body.message).toBe("Invalid credentials");
   });
 
   test("should logout", async () => {
@@ -80,7 +81,9 @@ describe("Auth Tests", () => {
     });
 
     const response = await request(app).post("/auth/logout");
+    const tokenCookie = response.headers["set-cookie"].find(cookie => cookie.startsWith('token='));
+    const tokenValue = tokenCookie.split(';')[0].split('=')[1];
+    expect(tokenValue).toBe("");
 
-    expect(response.headers["set-cookie"]).toBeUndefined();
   });
 });
