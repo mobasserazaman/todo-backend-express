@@ -45,18 +45,13 @@ const login = async (req, res) => {
 }
 
 const logout = (req, res) => {
-    console.log(req.headers.cookie); // Check if "token" exists
-
     res.clearCookie("token", {
         httpOnly: true, // Ensures cookie can't be accessed via JavaScript
         secure: process.env.NODE_ENV === "production",
         sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax", // Protects against CSRF
     });
-
-
     return res.status(200).json({ message: "Logged out successfully" });
 };
-
 
 
 module.exports = { register, login, logout };

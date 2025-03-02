@@ -15,7 +15,6 @@ const updateTask = async (req, res) => {
     const user = await User.findOne({username});
     const todo = user.tasks.find(task => task._id == req.params.id);
     if(!todo) return res.status(404).json({message: 'Task not found'});
-    console.log(req.body);
     const { title, completed } = req.body;
     todo.title = title;
     todo.completed = completed;

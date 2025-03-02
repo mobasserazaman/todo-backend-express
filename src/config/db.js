@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
-require("dotenv").config();
 
-const connectDB = async () => {
+const connectDB = async () => {        
     try{    
         mongoose.connection.on("connected", () => {
             console.log(`Connected to MongoDB at ${mongoose.connection.host}`)
