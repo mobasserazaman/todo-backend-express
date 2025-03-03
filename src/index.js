@@ -32,7 +32,7 @@ app.use('/auth', authRouter);
 app.use(protect);
 app.use('/todos', taskRouter);
 
-if(process.env.NODE_ENV !== "test") app.listen(5000, () => console.log('Server running on port 5000'));
+if(process.env.NODE_ENV !== "test") app.listen(3000, () => console.log('Server running on port 5000'));
 
 module.exports = app;
 
